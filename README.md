@@ -8,8 +8,8 @@ type timeInSeconds = number;
 type Condition = {
     sensorID: SensorID,
     // for has:
-    // value of null means sensor has no tag
-    // list of tagIDs means sensor must have one of the tags in the list. 
+    // value of null means condition is true when sensor has no tag
+    // list of tagIDs means condition is true when sensor has one of the listed tags. 
     // to specify a single tag, use a list of length 1
     has: null | TagID[],
     //if true, the result of this condition will be flipped from true to false and vice versa
@@ -30,7 +30,8 @@ type Action = {
 type Rules = {
     actions: Action[], //when all requirements are met and one or more triggers are met, the action will be executed
     requirements: Condition[], //all of these conditions must be met
-    triggers: Condition[], //at least one of these conditions must be met
+    triggers: Condition[], //at least one of these conditions must be met. 
+    //If there are no triggers, then action should execute when all requirements are met and ignore triggers
 }
 
 
