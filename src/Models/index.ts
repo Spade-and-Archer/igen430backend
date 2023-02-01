@@ -1,0 +1,1 @@
+import {getModelForClass, prop} from "@typegoose/typegoose";
