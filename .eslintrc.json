@@ -1,0 +1,69 @@
+{
+  "env": {
+    "node": true,
+    "es2020": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["import"],
+  "extends": ["eslint:recommended", "plugin:import/typescript", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-explicit-any": "off",
+    "no-template-curly-in-string": "warn",
+    "no-unreachable-loop": "warn",
+    "complexity": "warn",
+    "no-await-in-loop": "warn",
+
+    "no-eval": "error",
+    "no-promise-executor-return": "error",
+    "array-callback-return": "error",
+    "default-case": "error",
+    "dot-notation": "error",
+    "eqeqeq": "error",
+    "no-constructor-return": "error",
+    "no-void": ["error", { "allowAsStatement": false }],
+
+    "camelcase": "warn",
+    "lines-between-class-members": ["warn", "always"],
+
+    "import/no-commonjs": "error",
+    "import/extensions": [
+      "error",
+      "never",
+      {
+        "ignorePackages": true
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    }
+  },
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "plugins": ["@typescript-eslint"],
+      "extends": ["plugin:@typescript-eslint/recommended", "plugin:import/typescript"],
+
+      "rules": {
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/array-type": ["warn", { "default": "array" }],
+        "prefer-const": "off"
+      }
+    },
+    {
+      "files": ["./src/deviceCommunication/*.js", "./src/deviceCommunication/*.ts"],
+
+      "rules": {
+        "complexity": "off"
+      }
+    }
+  ]
+}
