@@ -16,7 +16,7 @@ type Condition = {
     invert: boolean,
     
     
-    //the remaining feilds are option stretch goals
+    //the remaining feilds are optional stretch goals
     minTime?: timeInSeconds,//min time the tag needs to have been on the sensor, assume 0 if undefined
     maxTime?: timeInSeconds, //max time that the tag can have been on the sensor, assume infinite if undefined
     order?: null | number // all conditions with defined order must have had their conditions 
