@@ -41,35 +41,7 @@ export class PuzzleSolution {
     perReaderRequirements: Record<string, RequirementsOptions>
 
 
-    isSolved(tagsPerReader:  Record<string, string>){
-        let failure = false;
-        Object.keys(this.perReaderRequirements).forEach((k)=>{
-            let requirements = this.perReaderRequirements[k];
-            let curTags = tagsPerReader[k];
-            if(curTags){
-                if(requirements.oneOf && requirements.oneOf.length > 0){
-                    if(!doesArrayOfOptionsIncludeTag(requirements.oneOf, curTags)){
-                        failure = true;
-                        return;
-                    }
-                }
-                if(requirements.not && requirements.not.length > 0){
-                    if(doesArrayOfOptionsIncludeTag(requirements.not, curTags)){
-                        failure = true;
-                        return;
-                    }
-                }
-            }else{
-                failure = true;
-            }
-        })
-        return !failure;
-
-    }
 }
-
-export const PuzzleSolutionModel = getModelForClass(PuzzleSolution);
-
 class PuzzleTemplate {
     @prop({ required: true })
     solutions: PuzzleSolution[];
@@ -79,6 +51,35 @@ class PuzzleTemplate {
     description: string;
     @prop({ required: true })
     readerNamesBySlotID: Record<string, string>;
+
+    isSolved(tagsPerReader:  Record<string, string>){
+        this.solutions.some((sol)=>{
+            let didSolutionFail = false;
+            Object.keys(sol.perReaderRequirements).forEach((k)=>{
+                let requirements = sol.perReaderRequirements[k];
+                let curTags = tagsPerReader[k];
+                if(curTags){
+                    if(requirements.oneOf && requirements.oneOf.length > 0){
+                        if(!doesArrayOfOptionsIncludeTag(requirements.oneOf, curTags)){
+                            didSolutionFail = true;
+                            return;
+                        }
+                    }
+                    if(requirements.not && requirements.not.length > 0){
+                        if(doesArrayOfOptionsIncludeTag(requirements.not, curTags)){
+                            didSolutionFail = true;
+                            return;
+                        }
+                    }
+                }else{
+                    didSolutionFail = true;
+                }
+            })
+            return !didSolutionFail
+        })
+
+
+    }
 }
 
 export const PuzzleTemplateModel = getModelForClass(PuzzleTemplate);
@@ -90,7 +91,7 @@ class PuzzleImplementation {
     assignedReaders: Record<string, string>;
     async checkImplementation(){
         let solved = false;
-        let solutions = (await PuzzleTemplateModel.findById( this.puzzleTemplate)).solutions
+        let template = (await PuzzleTemplateModel.findById( this.puzzleTemplate))
         let tagsPerReader = {};
         let promises = [];
         Object.keys(this.assignedReaders).forEach((k)=>{
@@ -110,12 +111,7 @@ class PuzzleImplementation {
         while(promises.length > 0){
             await promises.pop();
         }
-        solutions.forEach((sol)=>{
-            if(sol.isSolved(tagsPerReader)){
-                solved = true;
-            }
-        })
-        return solved;
+        return template.isSolved(tagsPerReader)
     }
 }
 
