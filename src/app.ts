@@ -23,7 +23,6 @@ export async function runServer(port: number): Promise<void> {
             console.log("Connection to local dataset established");
         }
     );
-
     // Initiate app functions
     // Set up express
     const app = express();
