@@ -16,7 +16,7 @@ export function doesArrayOfOptionsIncludeTag(options, curTags){
         return true;
     }
     //if the current tag is included in the not, it can't be valid;
-    else if(curTags.some((tag)=>{options.includes(tag)})){
+    if(curTags.some((tag)=>{return options.includes(tag)})){
         return true;
     }
     // //if any of the groups the current tag is in are valid, we are succssful

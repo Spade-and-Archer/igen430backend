@@ -6,7 +6,6 @@ export type RequirementsOptions = {
     not: (string | "any" | "noTag") [],
 }
 
-
 export class Tag {
     @prop({ required: true })
     name: string;
@@ -31,7 +30,6 @@ export class TagGroup {
     color: string;
 }
 
-
 export const TagGroupModel = getModelForClass(TagGroup);
 
 export class PuzzleSolution {
@@ -39,8 +37,6 @@ export class PuzzleSolution {
     solutionName: string;
     @prop({ required: true })
     perReaderRequirements: Record<string, RequirementsOptions>
-
-
 }
 class PuzzleTemplate {
     @prop({ required: true })
@@ -51,9 +47,8 @@ class PuzzleTemplate {
     description: string;
     @prop({ required: true })
     readerNamesBySlotID: Record<string, string>;
-
     isSolved(tagsPerReader:  Record<string, string>){
-        this.solutions.some((sol)=>{
+        return this.solutions.some((sol)=>{
             let didSolutionFail = false;
             Object.keys(sol.perReaderRequirements).forEach((k)=>{
                 let requirements = sol.perReaderRequirements[k];
@@ -86,10 +81,10 @@ export const PuzzleTemplateModel = getModelForClass(PuzzleTemplate);
 
 class PuzzleImplementation {
     @prop({ required: true, ref: () => PuzzleTemplate })
-    puzzleTemplate: Ref<PuzzleTemplate>[] ;
+    puzzleTemplate: Ref<PuzzleTemplate> ;
     @prop({ required: true })
     assignedReaders: Record<string, string>;
-    async checkImplementation(){
+    async checkImplementation() : Promise<boolean>{
         let solved = false;
         let template = (await PuzzleTemplateModel.findById( this.puzzleTemplate))
         let tagsPerReader = {};
@@ -98,7 +93,6 @@ class PuzzleImplementation {
             let readerKey = k;
             let readerUID = this.assignedReaders[k];
             let currentTagOnReader = stateMap[readerUID];
-
             promises.push(TagModel.find({node_id: currentTagOnReader}).then((r)=>{
                 if(r[0] && r[0].tagGroups){
                     tagsPerReader[readerKey] = [currentTagOnReader, ...r[0].tagGroups]
