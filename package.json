@@ -8,14 +8,15 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@typegoose/typegoose": "^8.0.0",
     "cors": "^2.8.5",
+    "dgram": "^1.0.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "mongoose": "~5.13.5",
-    "@typegoose/typegoose": "^8.0.0",
     "gardenspadejs": "github:Spade-and-Archer/garden-spade",
     "jsonwebtoken": "^8.5.1",
-    "mongodb-memory-server": "^7.3.4"
+    "mongodb-memory-server": "^7.3.4",
+    "mongoose": "~5.13.5"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

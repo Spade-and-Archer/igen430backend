@@ -5,6 +5,9 @@ import {apiRouter} from "./router";
 import { mongoose } from "@typegoose/typegoose";
 import firstTest from "./BasicConfigs/FirstTest";
 import {MongoMemoryReplSet} from "mongodb-memory-server";
+import dgram from "dgram";
+const controller = new AbortController();
+const { signal } = controller;
 const app = express;
 
 export async function runServer(port: number): Promise<void> {
@@ -28,6 +31,14 @@ export async function runServer(port: number): Promise<void> {
     app.listen(port, () => {
         console.log(`App is listening on port: ${port}`);
     });
+
+
+    const server = dgram.createSocket({ type: 'udp4', signal });
+    server.on('message', (msg, rinfo) => {
+        console.log(`server got: ${msg} from ${rinfo.address}:${rinfo.port}`);
+    });
+    server.bind(4012);
+    console.log("udp is active on port 4012");
 }
 
 const port = process.env.PORT || 4010;
