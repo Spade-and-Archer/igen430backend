@@ -20,7 +20,6 @@ export class Tag {
 }
 
 export const TagModel = getModelForClass(Tag);
-
 export class TagGroup {
     @prop({ required: true })
     name: string;
@@ -85,7 +84,6 @@ class PuzzleImplementation {
     @prop({ required: true })
     assignedReaders: Record<string, string>;
     async checkImplementation() : Promise<boolean>{
-        let solved = false;
         let template = (await PuzzleTemplateModel.findById( this.puzzleTemplate))
         let tagsPerReader = {};
         let promises = [];
