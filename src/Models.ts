@@ -79,6 +79,8 @@ class PuzzleTemplate {
 export const PuzzleTemplateModel = getModelForClass(PuzzleTemplate);
 
 class PuzzleImplementation {
+    @prop({ required: false, default: "unnamed" })
+    name: string ;
     @prop({ required: true, ref: () => PuzzleTemplate })
     puzzleTemplate: Ref<PuzzleTemplate> ;
     @prop({ required: true })

@@ -26,9 +26,17 @@ export default async function firstTest(){
                     "redReader" : { oneOf: ["redTag"]},
                     "greenReader" : { oneOf: ["greenTag"]},
                 }
-            }
+            },
+            {
+                solutionName: "alternate",
+                perReaderRequirements: {
+                    "blueReader" : { oneOf: ["diamond"]},
+                    "redReader" : { oneOf: ["diamond"]},
+                    "greenReader" : { oneOf: ["diamond"]},
+                }
+            },
         ],
-        name: "firstPuzzle",
+        name: "Basic Puzzle",
         description: "first puzzle ever",
         readerNamesBySlotID: {
             "blueReader" : "blueReader",
@@ -39,6 +47,7 @@ export default async function firstTest(){
     await puzzleTemplate.save();
 
     let implementation = new PuzzleImplementationModel({
+        name: "simpleImplementation",
         puzzleTemplate : puzzleTemplate._id,
         assignedReaders: {
             "blueReader" : "actualBlueReader",
