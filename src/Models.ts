@@ -27,6 +27,8 @@ export class TagGroup {
     icon: string;
     @prop({ required: true , default: "#000000"})
     color: string;
+    @prop({ required: true, default: []})
+    tags: string[];
 }
 
 export const TagGroupModel = getModelForClass(TagGroup);
@@ -93,14 +95,24 @@ class PuzzleImplementation {
             let readerKey = k;
             let readerUID = this.assignedReaders[k];
             let currentTagOnReader = stateMap[readerUID];
-            promises.push(TagModel.find({node_id: currentTagOnReader}).then((r)=>{
-                if(r[0] && r[0].tagGroups){
-                    tagsPerReader[readerKey] = [currentTagOnReader, ...r[0].tagGroups]
+            promises.push(TagGroupModel.find({tags: currentTagOnReader} ).then((r)=>{
+                if(r.length > 0){
+                    tagsPerReader[readerKey] = [currentTagOnReader, ...r.map((tagGroup)=>{
+                        return tagGroup._id.toString();
+                    })]
                 }
                 else{
                     tagsPerReader[readerKey] = [currentTagOnReader]
                 }
             }))
+            // promises.push(TagModel.find({node_id: currentTagOnReader}).then((r)=>{
+            //     if(r[0] && r[0].tagGroups){
+            //         tagsPerReader[readerKey] = [currentTagOnReader, ...r[0].tagGroups]
+            //     }
+            //     else{
+            //         tagsPerReader[readerKey] = [currentTagOnReader]
+            //     }
+            // }))
         })
         while(promises.length > 0){
             await promises.pop();

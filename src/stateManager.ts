@@ -4,9 +4,6 @@ type deviceState = {
 export const stateMap = {
     
 };
-export const tagGroupsPerTag = {
-
-};
 type RequirementsOptions = {
     oneOf: (string | "any" | "noTag") [], 
     not: (string | "any" | "noTag") [],
