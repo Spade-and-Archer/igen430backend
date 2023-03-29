@@ -16,7 +16,8 @@
     "gardenspadejs": "github:Spade-and-Archer/garden-spade",
     "jsonwebtoken": "^8.5.1",
     "mongodb-memory-server": "^7.3.4",
-    "mongoose": "~5.13.5"
+    "mongoose": "~5.13.5",
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

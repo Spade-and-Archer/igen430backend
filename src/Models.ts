@@ -119,6 +119,8 @@ class PuzzleImplementation {
         }
         return template.isSolved(tagsPerReader)
     }
+    @prop({ required: false })
+    action: string;
 }
 
 export const PuzzleImplementationModel = getModelForClass(PuzzleImplementation);

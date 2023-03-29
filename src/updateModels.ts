@@ -44,6 +44,16 @@ export const addOrEditPuzzleTemplate: RequestHandler = async (req, res) => {
 
 
 };
+
+export const deletePuzzleTemplate: RequestHandler = async (req, res) => {
+    if(req.params.id){
+        await PuzzleTemplateModel.deleteOne({_id: req.params.id});
+        res.status(200).send()
+
+        return;
+    }
+};
+
 export const addOrEditTagGroup: RequestHandler = async (req, res) => {
     if (req.params.id) {
         let tagGroupToEdit = await TagGroupModel.findById(req.params.id);

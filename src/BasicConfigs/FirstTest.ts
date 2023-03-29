@@ -6,7 +6,7 @@ export default async function firstTest(){
         "blueTag" : "#1E88E5", "redTag" : "#F44336", "greenTag" : "#4CAF50", "purpleTag": "#9C27B0",
     }
     let IDsPerTag= {
-        "blueTag" : "53 E3 4D 1F", "redTag" : "F3 B7 3B 1F", "greenTag" : "B3 6D AF 03", "purpleTag": "#9C27B0",
+        "blueTag" : "53 E3 4D 1F", "redTag" : "BB D7 A3 7A", "greenTag" : "B3 6D AF 03", "purpleTag": "#9C27B0",
     }
     let tags = ["blueTag", "redTag",   "greenTag", "purpleTag"].map((node)=>{
         return new TagGroupModel({
@@ -16,6 +16,45 @@ export default async function firstTest(){
             name: node,
         })
     })
+
+    let deerTag = new TagGroupModel({
+        color: "#43A047",
+        icon: "mdiHorseVariant",
+        tags : ['B3 6D AF 03'],
+        name: "Deer",
+    })
+    await deerTag.save();
+
+    let fireflyTag = new TagGroupModel({
+        color: "#7E57C2",
+        icon: "mdiBee",
+        tags : ['F3 60 04 98'],
+        name: "Firefly",
+    })
+    await fireflyTag.save();
+    let jellyfishTag = new TagGroupModel({
+        color: "#2196F3",
+        icon: "mdiJellyfish",
+        tags : ['53 E3 4D 1F'],
+        name: "Jellyfish",
+    })
+    await jellyfishTag.save();
+    let crowTag = new TagGroupModel({
+        color: "#00BCD4",
+        icon: "mdiBird",
+        tags : ['13 5E 0A 98'],
+        name: "Crow",
+    })
+    await crowTag.save();
+    let snakeTag = new TagGroupModel({
+        color: "#F44336",
+        icon: "mdiSnake",
+        tags : ["F3 B7 3B 1F"],
+        name: "Snake",
+    })
+    await snakeTag.save();
+
+
     // tags.push(...(["diamond1", "diamond2", "diamond3"].map((node)=>{
     //     return new TagModel({
     //         node_id: node,
@@ -38,6 +77,50 @@ export default async function firstTest(){
     while(tagSavePromises.length > 0){
         await tagSavePromises.pop();
     }
+
+    let demoPuzzleTemplate = new PuzzleTemplateModel({
+        solutions: [
+            {
+                solutionName: "hide",
+                perReaderRequirements: {
+                    "blueReader" : { oneOf: [diamondGroup._id.toString()]},
+                    "redReader" : { oneOf: [ diamondGroup._id.toString()]},
+                }
+            },
+            {
+                solutionName: "order 1",
+                perReaderRequirements: {
+                    "blueReader" : { oneOf: [deerTag._id.toString()]},
+                    "redReader" : { oneOf: [ fireflyTag._id.toString()]},
+                }
+            },
+            {
+                solutionName: "order 2",
+                perReaderRequirements: {
+                    "blueReader" : { oneOf: [fireflyTag._id.toString()]},
+                    "redReader" : { oneOf: [ deerTag._id.toString()]},
+                }
+            },
+        ],
+        name: "Demo Puzzle",
+        description: "first puzzle ever",
+        readerNamesBySlotID: {
+             "blueReader" : "reader 1",
+             "redReader" : "reader 2",
+        }
+    });
+    await demoPuzzleTemplate.save();
+
+    let demoImplementation = new PuzzleImplementationModel({
+        name: "demo implementation",
+        puzzleTemplate : demoPuzzleTemplate._id,
+        assignedReaders: {
+            "blueReader" : "B4:70:9C:25:BF:58",
+            "redReader": "34:AF:9C:25:BF:58",
+        },
+        action: "open box",
+    });
+    await demoImplementation.save();
 
 
     let puzzleTemplate = new PuzzleTemplateModel({
@@ -86,7 +169,7 @@ export default async function firstTest(){
         puzzleTemplate : puzzleTemplate._id,
         assignedReaders: {
             "blueReader" : "B4:70:9C:25:BF:58",
-            "redReader": "B4:70:9C:25:BF:58",
+            "redReader": "34:AF:9C:25:BF:58",
             "greenReader":  "B4:70:9C:25:BF:58",
         }
     });
