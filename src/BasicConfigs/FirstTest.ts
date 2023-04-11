@@ -58,6 +58,20 @@ export default async function firstTest(){
         "I" : '04:F3:CE:7A:B6:2A:81',
     }
 
+    let promises = [];
+   Object.keys(alphaTags) .forEach((letter)=>{
+        let newTag = new TagGroupModel({
+            color: "#A2722CFF",
+            icon: "mdiAlpha" + letter,
+            tags : [alphaTags[letter]],
+            name: "Letter  " + letter,
+        })
+       promises.push(newTag.save())
+    })
+    while(promises.length > 0){
+       await promises.pop();
+    }
+
     let fireflyTag = new TagGroupModel({
         color: "#7E57C2",
         icon: "mdiBee",
