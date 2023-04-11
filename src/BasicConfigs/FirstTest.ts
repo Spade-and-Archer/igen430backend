@@ -29,6 +29,10 @@ export default async function firstTest(){
     })
     await deerTag.save();
 
+    let alphaTags = {
+        "A" : 'F3 60 04 98'
+    }
+
     let fireflyTag = new TagGroupModel({
         color: "#7E57C2",
         icon: "mdiBee",
