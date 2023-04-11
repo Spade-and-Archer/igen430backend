@@ -54,6 +54,15 @@ export const deletePuzzleTemplate: RequestHandler = async (req, res) => {
     }
 };
 
+
+export const deletePuzzleImplementation: RequestHandler = async (req, res) => {
+    if(req.params.id){
+        await PuzzleImplementationModel.deleteOne({_id: req.params.id});
+        res.status(200).send()
+        return;
+    }
+};
+
 export const addOrEditTagGroup: RequestHandler = async (req, res) => {
     if (req.params.id) {
         let tagGroupToEdit = await TagGroupModel.findById(req.params.id);
@@ -100,6 +109,7 @@ export const addOrEditPuzzleImplementation: RequestHandler = async (req, res) =>
             puzzleImplementationToEdit.name = req.body.name || puzzleImplementationToEdit.name;
             puzzleImplementationToEdit.assignedReaders = req.body.assignedReaders || puzzleImplementationToEdit.assignedReaders;
             puzzleImplementationToEdit.puzzleTemplate = req.body.puzzleTemplate || puzzleImplementationToEdit.puzzleTemplate;
+            puzzleImplementationToEdit.action = req.body.action || puzzleImplementationToEdit.action;
             await  puzzleImplementationToEdit.save().then(() => {
                 res.status(200).send(puzzleImplementationToEdit);
             }).catch((e) => {

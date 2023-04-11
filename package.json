@@ -17,7 +17,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb-memory-server": "^7.3.4",
     "mongoose": "~5.13.5",
-    "node-fetch": "^2.6.1"
+    "net": "^1.0.2",
+    "node-fetch": "^2.6.1",
+    "sendkeys": "^1.1.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

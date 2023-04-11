@@ -4,12 +4,15 @@ import {PuzzleImplementationModel, PuzzleTemplateModel, TagGroupModel} from "./M
 import {
     addOrEditPuzzleImplementation,
     addOrEditPuzzleTemplate,
-    addOrEditTagGroup,
+    addOrEditTagGroup, deletePuzzleImplementation,
     deletePuzzleTemplate
 } from "./updateModels";
 import fetch from "node-fetch";
 import * as dgram from "dgram";
+import net from "net";
+import sendkeys from 'sendkeys'
 
+let powerpointSensorID = "B4:70:9C:25:BF:58";
 async function sleep(delay = 100, fn = undefined, ...args) {
     await timeout(delay);
     if (fn) {
@@ -35,6 +38,17 @@ apiRouter.post("/solution", async (req, res)=>{
     res.send("hello");
 })
 let cachedImpSolved = {};
+let lastAdvancedSlide = new Date();
+let lastTappedTag = "";
+let lastTappedReader = "";
+let lastTappedTime = new Date(0);
+apiRouter.get("/lastTap", async (req, res)=>{
+    res.send({
+        reader: lastTappedReader,
+        tag: lastTappedTag,
+        time: lastTappedTime
+    })
+})
 apiRouter.post("/updateReader", async (req, res)=>{
     console.log("Body:")
     console.log(JSON.stringify(req.body));
@@ -42,7 +56,19 @@ apiRouter.post("/updateReader", async (req, res)=>{
     console.log(JSON.stringify(req.header));
     let readerID = req.body.readerID || req.body.sensorID;
     let tagID = req.body.tagID;
+    if(readerID === powerpointSensorID && Math.abs(Date.now() - lastAdvancedSlide.valueOf()) > 5000){
+        lastAdvancedSlide = new Date(Date.now());
+        sendkeys(" ").catch((e)=>{
+            console.warn("could not send key")
+            console.warn(e);
+        });
+    }
     stateMap[readerID] = tagID;
+    if(tagID !== "NOTAG"){
+        lastTappedReader = readerID;
+        lastTappedTag = tagID;
+        lastTappedTime = new Date(Date. now());
+    }
     let allImplementations = await PuzzleImplementationModel.find({});
     let promises = [];
     let impStates = {};
@@ -141,10 +167,21 @@ let actions = {
             if(!registeredActuators[boxOpeningID]){
                 return;
             }
-            let client = dgram.createSocket('udp4');
-            client.send((solved ? 180 : 0).toString(), parseInt(registeredActuators[boxOpeningID].port.toString()), registeredActuators[boxOpeningID].ip, (err, bytes)=>{
-                client.close();
-            });
+            //let client = dgram.createSocket('udp4');
+            // client.send((solved ? 180 : 0).toString(), parseInt(registeredActuators[boxOpeningID].port.toString()), registeredActuators[boxOpeningID].ip, (err, bytes)=>{
+            //     client.close();
+            // });
+            try{
+                var client = new net.Socket();
+                client.connect(registeredActuators[boxOpeningID].port, registeredActuators[boxOpeningID].ip, function() {
+                    const rawHex = Buffer.from(solved ? "1" : "0", 'utf8');
+                    client.write(rawHex);
+                    client.end();
+                });
+            }catch(e){
+                console.warn(e);
+            }
+
             // let response = await fetch(`http://${registeredActuators[boxOpeningID].ip}:${registeredActuators[boxOpeningID].port}/`,{
             //     method: "POST",
             //     body: `{message: ${solved ? 20 : 0}}`,
@@ -173,8 +210,9 @@ apiRouter.post("/registerActuator/", async (req, res)=>{
 })
 apiRouter.post("/puzzles/", addOrEditPuzzleTemplate)
 apiRouter.post("/puzzles/:id", addOrEditPuzzleTemplate)
-apiRouter.delete("/puzzles/:id", deletePuzzleTemplate)
+apiRouter.delete( "/puzzles/:id", deletePuzzleTemplate)
 apiRouter.post("/tagGroups/", addOrEditTagGroup)
 apiRouter.post("/tagGroups/:id", addOrEditTagGroup)
 apiRouter.post("/PuzzleImplementations/:id", addOrEditPuzzleImplementation)
 apiRouter.post("/PuzzleImplementations/", addOrEditPuzzleImplementation)
+apiRouter.delete("/PuzzleImplementations/:id", deletePuzzleImplementation)

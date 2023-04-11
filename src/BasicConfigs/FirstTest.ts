@@ -1,5 +1,9 @@
 import {PuzzleImplementationModel, PuzzleTemplateModel, TagGroupModel, TagModel} from "../Models";
 import {stateMap} from "../stateManager";
+//"80:F0:3A:25:BF:58"
+//"A0:1D:AC:84:21:78"
+//"C0:3F:C0:55:B5:94"
+//"4C:40:C0:55:B5:94"
 
 export default async function firstTest(){
     let colorsPerTag = {
@@ -83,30 +87,26 @@ export default async function firstTest(){
             {
                 solutionName: "hide",
                 perReaderRequirements: {
-                    "blueReader" : { oneOf: [diamondGroup._id.toString()]},
-                    "redReader" : { oneOf: [ diamondGroup._id.toString()]},
+                    "R1" : { oneOf: [diamondGroup._id.toString()]},
+                    "R2" : { oneOf: [ diamondGroup._id.toString()]},
+                    "R3" : { oneOf: [ diamondGroup._id.toString()]},
                 }
             },
             {
                 solutionName: "order 1",
                 perReaderRequirements: {
-                    "blueReader" : { oneOf: [deerTag._id.toString()]},
-                    "redReader" : { oneOf: [ fireflyTag._id.toString()]},
-                }
-            },
-            {
-                solutionName: "order 2",
-                perReaderRequirements: {
-                    "blueReader" : { oneOf: [fireflyTag._id.toString()]},
-                    "redReader" : { oneOf: [ deerTag._id.toString()]},
+                    "R1" : { oneOf: [jellyfishTag._id.toString()]},
+                    "R2" : { oneOf: [ fireflyTag._id.toString()]},
+                    "R3" : { oneOf: [ crowTag._id.toString()]},
                 }
             },
         ],
         name: "Demo Puzzle",
         description: "first puzzle ever",
         readerNamesBySlotID: {
-             "blueReader" : "reader 1",
-             "redReader" : "reader 2",
+             "R1" : "reader 1",
+             "R2" : "reader 2",
+             "R3" : "reader 3",
         }
     });
     await demoPuzzleTemplate.save();
@@ -115,8 +115,9 @@ export default async function firstTest(){
         name: "demo implementation",
         puzzleTemplate : demoPuzzleTemplate._id,
         assignedReaders: {
-            "blueReader" : "B4:70:9C:25:BF:58",
-            "redReader": "34:AF:9C:25:BF:58",
+            "R1" :"C0:3F:C0:55:B5:94",
+            "R2": "B4:70:9C:25:BF:58",
+            "R3": "A0:1D:AC:84:21:78",
         },
         action: "open box",
     });

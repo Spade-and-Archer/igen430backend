@@ -2,7 +2,10 @@ type deviceState = {
     
 }
 export const stateMap = {
-    
+    // "80:F0:3A:25:BF:58" : "53 E3 4D 1F",
+    // "A0:1D:AC:84:21:78" : "F3 60 04 98",
+    // "C0:3F:C0:55:B5:94" : "13 5E 0A 98",
+
 };
 type RequirementsOptions = {
     oneOf: (string | "any" | "noTag") [], 
