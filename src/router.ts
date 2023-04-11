@@ -10,7 +10,6 @@ import {
 import fetch from "node-fetch";
 import * as dgram from "dgram";
 import net from "net";
-import sendkeys from 'sendkeys'
 
 let powerpointSensorID = "B4:70:9C:25:BF:58";
 async function sleep(delay = 100, fn = undefined, ...args) {
@@ -58,10 +57,7 @@ apiRouter.post("/updateReader", async (req, res)=>{
     let tagID = req.body.tagID;
     if(readerID === powerpointSensorID && Math.abs(Date.now() - lastAdvancedSlide.valueOf()) > 5000){
         lastAdvancedSlide = new Date(Date.now());
-        sendkeys(" ").catch((e)=>{
-            console.warn("could not send key")
-            console.warn(e);
-        });
+
     }
     stateMap[readerID] = tagID;
     if(tagID !== "NOTAG"){

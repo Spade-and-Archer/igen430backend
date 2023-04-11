@@ -101,6 +101,77 @@ export default async function firstTest(){
     })
     await snakeTag.save();
 
+    let lavenderTag = new TagGroupModel({
+        color: "purple",
+        icon: "mdiFlower",
+        tags : ["04 19 CF 7A B6 2A 81"],
+        name: "Lavender",
+    })
+    await lavenderTag.save();
+
+    let daisyTag = new TagGroupModel({
+        color: "yellow",
+        icon: "mdiFlower",
+        tags : ["04 FF CE 7A B6 2A 81"],
+        name: "Daisy",
+    })
+    await daisyTag.save();
+
+    let butterflyFlowerTag = new TagGroupModel({
+        color: "blue",
+        icon: "mdiFlower",
+        tags : ["04 8E 4B 7C B6 2A 81"],
+        name: "Butterfly Flower",
+    })
+    await butterflyFlowerTag.save();
+
+    let thistleTag = new TagGroupModel({
+        color: "purple",
+        icon: "mdiFlowerPoppy",
+        tags : ["04 24 CF 7A B6 2A 81"],
+        name: "Thistle",
+    })
+    await thistleTag.save();
+
+    let roseHipTag = new TagGroupModel({
+        color: "red",
+        icon: "mdiFlowerPoppy",
+        tags : ["04 18 CF 7A B6 2A 81"],
+        name: "RoseHip",
+    })
+    await roseHipTag.save();
+
+    let whiteDropTag = new TagGroupModel({
+        color: "dark-grey",
+        icon: "mdiWater",
+        tags : ["04 13 CF 7A B6 2A 81"],
+        name: "White Drop",
+    })
+    await whiteDropTag.save();
+
+    let yellowDropTag = new TagGroupModel({
+        color: "yellow",
+        icon: "mdiWater",
+        tags : ["04 11 CF 7A B6 2A 81"],
+        name: "Yellow Drop",
+    })
+    await yellowDropTag.save();
+
+    let blueDropTag = new TagGroupModel({
+        color: "blue",
+        icon: "mdiWater",
+        tags : ["04 12 CF 7A B6 2A 81"],
+        name: "Blue Drop",
+    })
+    await blueDropTag.save();
+
+    let rootTag = new TagGroupModel({
+        color: "brown",
+        icon: "mdiTree",
+        tags : ["04 1B CF 7A B6 2A 81"],
+        name: "Root",
+    })
+    await rootTag.save();
 
     // tags.push(...(["diamond1", "diamond2", "diamond3"].map((node)=>{
     //     return new TagModel({
