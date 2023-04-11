@@ -29,48 +29,7 @@ export default async function firstTest(){
     })
     await deerTag.save();
 
-    let alphaTags = {
-        "X" : '04:F8:CE:7A:B6:2A:81',
-        "A" : '04:F2:CE:7A:B6:2A:81',
-        "T" : '04:ED:CE:7A:B6:2A:81',
-        "R" : '04:76:E6:7A:B6:2A:81',
-        "C" : '04:EF:CE:7A:B6:2A:81',
-        "J" : '04:F7:CE:7A:B6:2A:81',
-        "V" : '04:FA:CE:7A:B6:2A:81',
-        "H" : '04:EE:CE:7A:B6:2A:81',
-        "F" : '04:7D:E6:7A:B6:2A:81',
-        "Q" : '04:E6:CE:7A:B6:2A:81',
-        "B" : '04:E4:CE:7A:B6:2A:81',
-        "W" : '04:F1:CE:7A:B6:2A:81',
-        "Y" : '04:F9:CE:7A:B6:2A:81',
-        "M" : '04:8D:4B:7C:B6:2A:81',
-        "D" : '04:77:E6:7A:B6:2A:81',
-        "E" : '0 4:7C:E6:7A:B6:2A:8',
-        "G" : '04:7E:E6:7A:B6:2A:81',
-        "K" : '04:F5:CE:7A:B6:2A:81',
-        "L" : '04:EC:CE:7A:B6:2A:81',
-        "N" : '04:EA:CE:7A:B6:2A:81',
-        "O" : '04:FB:CE:7A:B6:2A:81',
-        "P" : '04:F6:CE:7A:B6:2A:81',
-        "S" : '04:E5:CE:7A:B6:2A:81',
-        "U" : '04:F4:CE:7A:B6:2A:81',
-        "Z" : '04:FC:C3:7A:B6:2A:81',
-        "I" : '04:F3:CE:7A:B6:2A:81',
-    }
 
-    let promises = [];
-   Object.keys(alphaTags) .forEach((letter)=>{
-        let newTag = new TagGroupModel({
-            color: "#A2722CFF",
-            icon: "mdiAlpha" + letter,
-            tags : [alphaTags[letter]],
-            name: "Letter  " + letter,
-        })
-       promises.push(newTag.save())
-    })
-    while(promises.length > 0){
-       await promises.pop();
-    }
 
     let fireflyTag = new TagGroupModel({
         color: "#7E57C2",
@@ -117,13 +76,61 @@ export default async function firstTest(){
     })
 
 
+
     let tagSavePromises : Promise<any>[] = tags.map((tag)=>{
         return tag.save();
     })
+
+
+
     tagSavePromises.push(diamondGroup.save());
     while(tagSavePromises.length > 0){
         await tagSavePromises.pop();
     }
+
+    let alphaTags = {
+        "X" : '04:F8:CE:7A:B6:2A:81',
+        "A" : '04:F2:CE:7A:B6:2A:81',
+        "T" : '04:ED:CE:7A:B6:2A:81',
+        "R" : '04:76:E6:7A:B6:2A:81',
+        "C" : '04:EF:CE:7A:B6:2A:81',
+        "J" : '04:F7:CE:7A:B6:2A:81',
+        "V" : '04:FA:CE:7A:B6:2A:81',
+        "H" : '04:EE:CE:7A:B6:2A:81',
+        "F" : '04:7D:E6:7A:B6:2A:81',
+        "Q" : '04:E6:CE:7A:B6:2A:81',
+        "B" : '04:E4:CE:7A:B6:2A:81',
+        "W" : '04:F1:CE:7A:B6:2A:81',
+        "Y" : '04:F9:CE:7A:B6:2A:81',
+        "M" : '04:8D:4B:7C:B6:2A:81',
+        "D" : '04:77:E6:7A:B6:2A:81',
+        "E" : '0 4:7C:E6:7A:B6:2A:8',
+        "G" : '04:7E:E6:7A:B6:2A:81',
+        "K" : '04:F5:CE:7A:B6:2A:81',
+        "L" : '04:EC:CE:7A:B6:2A:81',
+        "N" : '04:EA:CE:7A:B6:2A:81',
+        "O" : '04:FB:CE:7A:B6:2A:81',
+        "P" : '04:F6:CE:7A:B6:2A:81',
+        "S" : '04:E5:CE:7A:B6:2A:81',
+        "U" : '04:F4:CE:7A:B6:2A:81',
+        "Z" : '04:FC:C3:7A:B6:2A:81',
+        "I" : '04:F3:CE:7A:B6:2A:81',
+    }
+
+    let promises = [];
+    Object.keys(alphaTags).sort() .forEach((letter)=>{
+        let newTag = new TagGroupModel({
+            color: "#A2722CFF",
+            icon: "mdiAlpha" + letter,
+            tags : [alphaTags[letter]],
+            name: "Letter  " + letter,
+        })
+        promises.push(newTag.save())
+    })
+    while(promises.length > 0){
+        await promises.pop();
+    }
+
 
     let demoPuzzleTemplate = new PuzzleTemplateModel({
         solutions: [
