@@ -70,6 +70,7 @@ apiRouter.post("/updateReader", async (req, res)=>{
     let impStates = {};
     allImplementations.forEach((imp)=>{
         promises.push(imp.checkImplementation().then((isSolved)=>{
+
             if(cachedImpSolved[imp._id.toString()] !== isSolved){
                 if(imp.action && actions[imp.action]){
                     actions[imp.action](isSolved);
@@ -170,7 +171,51 @@ let actions = {
             try{
                 var client = new net.Socket();
                 client.connect(registeredActuators[boxOpeningID].port, registeredActuators[boxOpeningID].ip, function() {
-                    const rawHex = Buffer.from(solved ? "1" : "0", 'utf8');
+                    const rawHex = Buffer.from(solved ? "9" : "8", 'utf8');
+                    client.write(rawHex);
+                    client.end();
+                });
+            }catch(e){
+                console.warn(e);
+            }
+
+            // let response = await fetch(`http://${registeredActuators[boxOpeningID].ip}:${registeredActuators[boxOpeningID].port}/`,{
+            //     method: "POST",
+            //     body: `{message: ${solved ? 20 : 0}}`,
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //         // 'Content-Type': 'application/x-www-form-urlencoded',
+            //     },
+            //     redirect: 'follow', // manual, *follow, error
+            //     referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            // }).catch((e)=>{
+            //     console.warn(e);
+            // })
+        }catch(e){
+
+        }
+    },
+    "reveal potion" : async (solved)=>{
+        try{
+            let boxOpeningID = "24:24:AC:84:21:78"
+            if(!registeredActuators[boxOpeningID]){
+                return;
+            }
+            //let client = dgram.createSocket('udp4');
+            // client.send((solved ? 180 : 0).toString(), parseInt(registeredActuators[boxOpeningID].port.toString()), registeredActuators[boxOpeningID].ip, (err, bytes)=>{
+            //     client.close();
+            // });
+            try{
+                let potionToReveal = [
+                    false,
+                    "A Sip Of The Moon",
+                    "Step Skyward",
+                    "Pan's Syrup",
+                    "Blood of the fallen"
+                ].indexOf(solved);
+                var client = new net.Socket();
+                client.connect(registeredActuators[boxOpeningID].port, registeredActuators[boxOpeningID].ip, function() {
+                    const rawHex = Buffer.from(potionToReveal.toString(), 'utf8');
                     client.write(rawHex);
                     client.end();
                 });

@@ -49,7 +49,8 @@ class PuzzleTemplate {
     @prop({ required: true })
     readerNamesBySlotID: Record<string, string>;
     isSolved(tagsPerReader:  Record<string, string>){
-        return this.solutions.some((sol)=>{
+        let satisfiedSolName :string | boolean = false;
+        let solved = this.solutions.some((sol)=>{
             let didSolutionFail = false;
             Object.keys(sol.perReaderRequirements).forEach((k)=>{
                 let requirements = sol.perReaderRequirements[k];
@@ -71,8 +72,12 @@ class PuzzleTemplate {
                     didSolutionFail = true;
                 }
             })
+            if(!didSolutionFail){
+                satisfiedSolName = sol.solutionName
+            }
             return !didSolutionFail
         })
+        return satisfiedSolName
 
 
     }
@@ -87,7 +92,7 @@ class PuzzleImplementation {
     puzzleTemplate: Ref<PuzzleTemplate> ;
     @prop({ required: true })
     assignedReaders: Record<string, string>;
-    async checkImplementation() : Promise<boolean>{
+    async checkImplementation() : Promise<boolean | string>{
         let template = (await PuzzleTemplateModel.findById( this.puzzleTemplate))
         let tagsPerReader = {};
         let promises = [];

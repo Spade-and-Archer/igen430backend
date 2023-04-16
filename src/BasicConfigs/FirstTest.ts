@@ -61,7 +61,7 @@ export default async function firstTest(){
     await snakeTag.save();
 
     let lavenderTag = new TagGroupModel({
-        color: "purple",
+        color: "rgb(123, 31, 162)",
         icon: "mdiFlower",
         tags : ["04 19 CF 7A B6 2A 81"],
         name: "Lavender",
@@ -69,7 +69,7 @@ export default async function firstTest(){
     await lavenderTag.save();
 
     let daisyTag = new TagGroupModel({
-        color: "yellow",
+        color: "rgb(255, 215, 64)",
         icon: "mdiFlower",
         tags : ["04 FF CE 7A B6 2A 81"],
         name: "Daisy",
@@ -77,7 +77,7 @@ export default async function firstTest(){
     await daisyTag.save();
 
     let butterflyFlowerTag = new TagGroupModel({
-        color: "blue",
+        color: "rgb(68, 138, 255)",
         icon: "mdiFlower",
         tags : ["04 8E 4B 7C B6 2A 81"],
         name: "Butterfly Flower",
@@ -85,7 +85,7 @@ export default async function firstTest(){
     await butterflyFlowerTag.save();
 
     let thistleTag = new TagGroupModel({
-        color: "purple",
+        color: "rgb(123, 31, 162)",
         icon: "mdiFlowerPoppy",
         tags : ["04 24 CF 7A B6 2A 81"],
         name: "Thistle",
@@ -93,7 +93,7 @@ export default async function firstTest(){
     await thistleTag.save();
 
     let roseHipTag = new TagGroupModel({
-        color: "red",
+        color: "rgb(244, 67, 54)",
         icon: "mdiFlowerPoppy",
         tags : ["04 18 CF 7A B6 2A 81"],
         name: "RoseHip",
@@ -109,7 +109,7 @@ export default async function firstTest(){
     await whiteDropTag.save();
 
     let yellowDropTag = new TagGroupModel({
-        color: "yellow",
+        color: "rgb(255, 215, 64)",
         icon: "mdiWater",
         tags : ["04 11 CF 7A B6 2A 81"],
         name: "Yellow Drop",
@@ -117,7 +117,7 @@ export default async function firstTest(){
     await yellowDropTag.save();
 
     let blueDropTag = new TagGroupModel({
-        color: "blue",
+        color: "rgb(68, 138, 255)",
         icon: "mdiWater",
         tags : ["04 12 CF 7A B6 2A 81"],
         name: "Blue Drop",
@@ -125,7 +125,7 @@ export default async function firstTest(){
     await blueDropTag.save();
 
     let rootTag = new TagGroupModel({
-        color: "brown",
+        color: "rgb(93, 64, 55)",
         icon: "mdiTree",
         tags : ["04 1B CF 7A B6 2A 81"],
         name: "Root",
@@ -160,33 +160,36 @@ export default async function firstTest(){
     }
 
     let alphaTags = {
-        "X" : '04:F8:CE:7A:B6:2A:81',
-        "A" : '04:F2:CE:7A:B6:2A:81',
-        "T" : '04:ED:CE:7A:B6:2A:81',
-        "R" : '04:76:E6:7A:B6:2A:81',
-        "C" : '04:EF:CE:7A:B6:2A:81',
-        "J" : '04:F7:CE:7A:B6:2A:81',
-        "V" : '04:FA:CE:7A:B6:2A:81',
-        "H" : '04:EE:CE:7A:B6:2A:81',
-        "F" : '04:7D:E6:7A:B6:2A:81',
-        "Q" : '04:E6:CE:7A:B6:2A:81',
-        "B" : '04:E4:CE:7A:B6:2A:81',
-        "W" : '04:F1:CE:7A:B6:2A:81',
-        "Y" : '04:F9:CE:7A:B6:2A:81',
-        "M" : '04:8D:4B:7C:B6:2A:81',
-        "D" : '04:77:E6:7A:B6:2A:81',
-        "E" : '0 4:7C:E6:7A:B6:2A:8',
-        "G" : '04:7E:E6:7A:B6:2A:81',
-        "K" : '04:F5:CE:7A:B6:2A:81',
-        "L" : '04:EC:CE:7A:B6:2A:81',
-        "N" : '04:EA:CE:7A:B6:2A:81',
-        "O" : '04:FB:CE:7A:B6:2A:81',
-        "P" : '04:F6:CE:7A:B6:2A:81',
-        "S" : '04:E5:CE:7A:B6:2A:81',
-        "U" : '04:F4:CE:7A:B6:2A:81',
-        "Z" : '04:FC:C3:7A:B6:2A:81',
-        "I" : '04:F3:CE:7A:B6:2A:81',
+        "X" :  '04 F8 CE 7A B6 2A 81',
+        "A" :  '04 F2 CE 7A B6 2A 81',
+        "T" :  '04 ED CE 7A B6 2A 81',
+        "R" :  '04 76 E6 7A B6 2A 81',
+        "C" :  '04 EF CE 7A B6 2A 81',
+        "J" :  '04 F7 CE 7A B6 2A 81',
+        "V" :  '04 FA CE 7A B6 2A 81',
+        "H" :  '04 EE CE 7A B6 2A 81',
+        "F" :  '04 7D E6 7A B6 2A 81',
+        "Q" :  '04 E6 CE 7A B6 2A 81',
+        "B" :  '04 E4 CE 7A B6 2A 81',
+        "W" :  '04 F1 CE 7A B6 2A 81',
+        "Y" :  '04 F9 CE 7A B6 2A 81',
+        "M" :  '04 8D 4B 7C B6 2A 81',
+        "D" :  '04 77 E6 7A B6 2A 81',
+        "E" :  '0 4 7C E6 7A B6 2A 8',
+        "G" :  '04 7E E6 7A B6 2A 81',
+        "K" :  '04 F5 CE 7A B6 2A 81',
+        "L" :  '04 EC CE 7A B6 2A 81',
+        "N" :  '04 EA CE 7A B6 2A 81',
+        "O" :  '04 FB CE 7A B6 2A 81',
+        "P" :  '04 F6 CE 7A B6 2A 81',
+        "S" :  '04 E5 CE 7A B6 2A 81',
+        "U" :  '04 F4 CE 7A B6 2A 81',
+        "Z" :  '04 FC C3 7A B6 2A 81',
+        "I" :  '04 F3 CE 7A B6 2A 81',
     }
+    let alphaTagIDs = {
+
+    };
 
     let promises = [];
     Object.keys(alphaTags).sort() .forEach((letter)=>{
@@ -196,7 +199,9 @@ export default async function firstTest(){
             tags : [alphaTags[letter]],
             name: "Letter  " + letter,
         })
-        promises.push(newTag.save())
+        promises.push(newTag.save().then((r)=>{
+            alphaTagIDs[letter] = r._id.toString()
+        }))
     })
     while(promises.length > 0){
         await promises.pop();
@@ -221,6 +226,15 @@ export default async function firstTest(){
                     "R3" : { oneOf: [ crowTag._id.toString()]},
                 }
             },
+            {
+                solutionName: "IGEN",
+                perReaderRequirements: {
+                    "R1" : { oneOf: [alphaTagIDs["I"]]},
+                    "R2" : { oneOf: [ alphaTagIDs["G"]]},
+                    "R3" : { oneOf: [  alphaTagIDs["E"]]},
+               //     "R4" : { oneOf: [  alphaTagIDs["N"]]},
+                }
+            },
         ],
         name: "Demo Puzzle",
         description: "first puzzle ever",
@@ -228,9 +242,75 @@ export default async function firstTest(){
              "R1" : "reader 1",
              "R2" : "reader 2",
              "R3" : "reader 3",
+             //"R4" : "reader 4",
         }
     });
     await demoPuzzleTemplate.save();
+
+    let potionPuzzle = new PuzzleTemplateModel({
+        solutions: [
+            {
+                solutionName: "Blood of the fallen",
+                perReaderRequirements: {
+                    "R1" : { oneOf: [roseHipTag._id.toString()]},
+                    "R2" : { oneOf: [ rootTag._id.toString()]},
+                    "R3" : { oneOf: [ blueDropTag._id.toString()]},
+                 //   "R4" : { oneOf: [ yellowDropTag._id.toString()]},
+                }
+            },
+            {
+                solutionName: "Pan's Syrup",
+                perReaderRequirements: {
+                    "R1" : { oneOf: [ daisyTag._id.toString()]},
+                    "R2" : { oneOf: [ fireflyTag._id.toString()]},
+                    "R3" : { oneOf: [ whiteDropTag._id.toString()]},
+              //      "R4" : { oneOf: [ yellowDropTag._id.toString()]},
+                }
+            },
+            {
+                solutionName: "Step Skyward",
+                perReaderRequirements: {
+                    "R1" : { oneOf: [ lavenderTag._id.toString()]},
+                    "R2" : { oneOf: [ butterflyFlowerTag._id.toString()]},
+                    "R3" : { oneOf: [ blueDropTag._id.toString()]},
+                //    "R4" : { oneOf: [ whiteDropTag._id.toString()]},
+                }
+            },
+            {
+                solutionName: "A Sip Of The Moon",
+                perReaderRequirements: {
+                    "R1" : { oneOf: [ lavenderTag._id.toString()]},
+                    "R2" : { oneOf: [ thistleTag._id.toString()]},
+                    "R3" : { oneOf: [ yellowDropTag._id.toString()]},
+              //      "R4" : { oneOf: [ blueDropTag._id.toString()]},
+                }
+            },
+        ],
+        name: "Potion Puzzle",
+        description: "first puzzle ever",
+        readerNamesBySlotID: {
+            "R1" : "Top Right",
+            "R2" : "Bot Left",
+            "R3" : "Top left",
+           // "R4" : "reader 4",
+        }
+    });
+    await potionPuzzle.save();
+
+
+    let potionImplementation = new PuzzleImplementationModel({
+        name: "potion implementation",
+        puzzleTemplate : potionPuzzle._id,
+        assignedReaders: {
+            "R1" :"C0:3F:C0:55:B5:94",
+            "R2": "B4:70:9C:25:BF:58",
+            "R3": "A0:1D:AC:84:21:78",
+       //     "R4": "34:AF:9C:25:BF:58",
+        },
+        action: "reveal potion",
+    });
+    await potionImplementation.save();
+
 
     let demoImplementation = new PuzzleImplementationModel({
         name: "demo implementation",
@@ -239,6 +319,7 @@ export default async function firstTest(){
             "R1" :"C0:3F:C0:55:B5:94",
             "R2": "B4:70:9C:25:BF:58",
             "R3": "A0:1D:AC:84:21:78",
+         //   "R4": "34:AF:9C:25:BF:58",
         },
         action: "open box",
     });
